@@ -1,0 +1,32 @@
+:root {
+  --clr-primary: hsl(163, 21%, 83%);
+  --ff-title: "Bebas Neue", cursive;
+}
+
+* {
+  margin: 0;
+}
+
+.card__wrapper {
+  font-family: "Barlow Semi Condensed", sans-serif;
+  display: flex;
+  margin: auto;
+  border-radius: 0.5rem;
+  max-width: 30rem;
+  max-height: 18rem;
+  background-color: var(--clr-primary);
+}
+
+.card__text_wrapper {
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.card__image {
+  object-fit: cover;
+}
+
+.card__title {
+  font-family: var(--ff-title);
+  font-size: 2.5rem;
+}
