@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Card from "./components/Card";
 
+// TODO: Remove this!
+
+// const ISBNID = "000647988X";
+
 function App() {
   const [bookInfo, setBookInfo] = useState({
     title: "",
@@ -13,6 +17,8 @@ function App() {
     subtitle: "",
   });
 
+  const [showCard, setShowCard] = useState(false);
+
   const [input, setInput] = useState("");
 
   async function handleSearch(e) {
@@ -23,39 +29,46 @@ function App() {
 
     const data = await res;
 
-    const ISBN = data[`ISBN:${input}`];
+    const isbn = data[`ISBN:${input}`];
 
     setBookInfo({
       ...bookInfo,
-      title: ISBN.title,
-      publishedDate: ISBN.publish_date,
-      cover: ISBN.cover.medium,
-      author: ISBN.authors[0].name,
-      numberOfPages: ISBN.number_of_pages,
+      cover: isbn.cover.medium,
+      title: isbn.title,
+      publishedDate: isbn.publish_date,
+      author: isbn.authors[0].name,
+      numberOfPages: isbn.number_of_pages,
       isbnNumber: input,
-      subtitle: ISBN.subtitle,
+      subtitle: isbn.subtitle,
     });
 
     setInput("");
-    console.log(bookInfo);
+    handleCardModal();
   }
 
   function handleChange(e) {
     setInput(e.target.value);
   }
 
+  function handleCardModal() {
+    setShowCard(true);
+  }
+  // TODO: Remove this!
+  // handleSearch();
+
   return (
     <div className="App">
-      <h1>hello</h1>
-      <Card
-        title={bookInfo.title}
-        author={bookInfo.author}
-        publishedDate={bookInfo.publishedDate}
-        cover={bookInfo.cover}
-        numberOfPages={bookInfo.numberOfPages}
-        isbnNumber={bookInfo.isbnNumber}
-        subtitle={bookInfo.subtitle}
-      />
+      {showCard && (
+        <Card
+          title={bookInfo.title}
+          author={bookInfo.author}
+          publishedDate={bookInfo.publishedDate}
+          cover={bookInfo.cover}
+          numberOfPages={bookInfo.numberOfPages}
+          isbnNumber={bookInfo.isbnNumber}
+          subtitle={bookInfo.subtitle}
+        />
+      )}
       <input type="text" onChange={handleChange} value={input} />
       <button onClick={handleSearch}>Search</button>
     </div>
