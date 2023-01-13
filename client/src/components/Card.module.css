@@ -1,6 +1,8 @@
 :root {
   --clr-primary: hsl(163, 21%, 83%);
+  --clr-secondary: hsl(233, 4%, 57%);
   --ff-title: "Bebas Neue", cursive;
+  --ff-main: "Barlow Semi Condensed", sans-serif;
 }
 
 * {
@@ -8,13 +10,18 @@
 }
 
 .card__wrapper {
-  font-family: "Barlow Semi Condensed", sans-serif;
+  font-family: var(--ff-main);
+  overflow: hidden;
   display: flex;
   margin: auto;
   border-radius: 0.5rem;
-  max-width: 30rem;
-  max-height: 18rem;
+  max-width: 27rem;
+  /* max-height: 25rem; */
   background-color: var(--clr-primary);
+  border: 1px solid var(--clr-secondary);
+  box-shadow: 4px 4px 10px var(--clr-secondary);
+  padding: 0;
+  animation: animation 1100ms ease-in-out forwards;
 }
 
 .card__text_wrapper {
@@ -23,10 +30,39 @@
 }
 
 .card__image {
-  object-fit: cover;
+  object-fit: fill;
+  image-rendering: optimizeQuality;
 }
 
 .card__title {
   font-family: var(--ff-title);
-  font-size: 2.5rem;
+  font-size: 2rem;
+}
+
+.card__subtitle {
+  font-size: 1rem;
+  padding-block: 0.2rem;
+}
+
+.card__author {
+  padding-block: 0.75rem;
+  font-size: 1.35rem;
+}
+
+.card__pages {
+  padding-block: 0.75rem;
+}
+
+@keyframes animation {
+  0% {
+    opacity: 0;
+    filter: grayscale(100%);
+  }
+
+  50% {
+    filter: grayscale(100%);
+  }
+  100% {
+    opacity: 1;
+  }
 }

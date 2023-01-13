@@ -2,7 +2,7 @@ import styles from "./Card.module.css";
 
 export default function Card(props) {
   return (
-    <div className={styles.card__wrapper}>
+    <dialog className={styles.card__wrapper}>
       <img
         className={styles.card__image}
         src={`${props.cover}`}
@@ -12,7 +12,7 @@ export default function Card(props) {
         <h2 className={styles.card__title}>{props.title}</h2>
 
         {props.subtitle && (
-          <h5 className={styles.card__subtitle}>{props.subtitle}</h5>
+          <p className={styles.card__subtitle}>{props.subtitle}</p>
         )}
 
         <h5 className={styles.card__author}>{props.author}</h5>
@@ -24,6 +24,6 @@ export default function Card(props) {
         </p>
         <p className={styles.card__isbn}>ISBN: {props.isbnNumber}</p>
       </div>
-    </div>
+    </dialog>
   );
 }
