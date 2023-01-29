@@ -1,0 +1,63 @@
+:root {
+  --clr-primary: hsl(163, 21%, 83%);
+  --clr-primary-100: hsl(0, 3%, 34%);
+  --clr-primary-transparent: hsla(163, 21%, 83%, 0.253);
+  --clr-secondary: hsl(233, 4%, 57%);
+  --ff-title: "Bebas Neue", cursive;
+  --ff-main: "Barlow Semi Condensed", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  line-height: 1.5;
+  background-color: var(--clr-primary-100);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+#root {
+  isolation: isolate;
+}
+
+.book-card__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}

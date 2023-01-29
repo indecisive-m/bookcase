@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+import Navbar from "./components/Navbar";
 import Card from "./components/Card";
-
-// TODO: Remove this!
-
-// const ISBNID = "000647988X";
+import ListCard from "./components/ListCard";
 
 function App() {
+  let storageArray = [];
+
   const [bookInfo, setBookInfo] = useState({
     title: "",
     publishedDate: "",
@@ -18,18 +18,26 @@ function App() {
   });
 
   const [showCard, setShowCard] = useState(false);
+  const [savedBooks, setSavedBooks] = useState([]);
 
-  const [input, setInput] = useState("");
+  useEffect(() => {
+    const getLocalStorage = JSON.parse(localStorage.getItem("books"));
+    if (getLocalStorage) {
+      getLocalStorage.forEach((book) => {
+        setSavedBooks(() => {
+          return [...book];
+        });
+      });
+    } else return;
+  }, []);
 
-  async function handleSearch(e) {
+  async function handleSearch(value) {
     const url1 = await fetch(
-      `https://openlibrary.org/api/books?bibkeys=ISBN:${input}&jscmd=data&format=json`
+      `https://openlibrary.org/api/books?bibkeys=ISBN:${value}&jscmd=data&format=json`
     );
     const res = await url1.json();
-
     const data = await res;
-
-    const isbn = data[`ISBN:${input}`];
+    const isbn = data[`ISBN:${value}`];
 
     setBookInfo({
       ...bookInfo,
@@ -38,26 +46,63 @@ function App() {
       publishedDate: isbn.publish_date,
       author: isbn.authors[0].name,
       numberOfPages: isbn.number_of_pages,
-      isbnNumber: input,
+      isbnNumber: value,
       subtitle: isbn.subtitle,
     });
 
-    setInput("");
     handleCardModal();
   }
 
-  function handleChange(e) {
-    setInput(e.target.value);
+  function handleCardModal() {
+    setShowCard((card) => !card);
   }
 
-  function handleCardModal() {
-    setShowCard(true);
+  function handleAddCard() {
+    if (
+      savedBooks.filter((book) => book.isbnNumber === bookInfo.isbnNumber)
+        .length === 0 ||
+      savedBooks.length === 0
+    ) {
+      setSavedBooks((prevBooks) => {
+        return [...prevBooks, bookInfo];
+      });
+
+      console.log("putting it in the list");
+    } else {
+      console.log("This book is already included in this list");
+    }
+
+    handleCardModal();
   }
-  // TODO: Remove this!
-  // handleSearch();
+
+  useEffect(() => {
+    if (savedBooks.length < 1) {
+      return;
+    }
+    storageArray.push(savedBooks);
+    localStorage.setItem("books", JSON.stringify(storageArray));
+  }, [savedBooks]);
+
+  const bookCard = savedBooks.map((item) => {
+    if (savedBooks.length !== 0) {
+      return (
+        <ListCard
+          key={item.isbnNumber}
+          title={item.title}
+          author={item.author}
+          publishedDate={item.publishedDate}
+          cover={item.cover}
+          numberOfPages={item.numberOfPages}
+          isbnNumber={item.isbnNumber}
+          subtitle={item.subtitle}
+        />
+      );
+    }
+  });
 
   return (
     <div className="App">
+      <Navbar handleSearch={handleSearch} />
       {showCard && (
         <Card
           title={bookInfo.title}
@@ -67,10 +112,10 @@ function App() {
           numberOfPages={bookInfo.numberOfPages}
           isbnNumber={bookInfo.isbnNumber}
           subtitle={bookInfo.subtitle}
+          handleAddCard={handleAddCard}
         />
       )}
-      <input type="text" onChange={handleChange} value={input} />
-      <button onClick={handleSearch}>Search</button>
+      <div className="book-card__container">{bookCard}</div>
     </div>
   );
 }

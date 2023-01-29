@@ -1,15 +1,5 @@
-:root {
-  --clr-primary: hsl(163, 21%, 83%);
-  --clr-secondary: hsl(233, 4%, 57%);
-  --ff-title: "Bebas Neue", cursive;
-  --ff-main: "Barlow Semi Condensed", sans-serif;
-}
-
-* {
-  margin: 0;
-}
-
 .card__wrapper {
+  z-index: 1;
   font-family: var(--ff-main);
   overflow: hidden;
   display: flex;
@@ -27,6 +17,33 @@
 .card__text_wrapper {
   flex-direction: column;
   padding: 1rem;
+  position: relative;
+}
+
+.card__text_wrapper::after {
+  content: "";
+  position: absolute;
+  height: 10rem;
+  width: 10rem;
+  border-radius: 100%;
+  background-color: var(--clr-secondary);
+  opacity: 0.3;
+  top: -5rem;
+  right: -5rem;
+  z-index: -1;
+}
+
+.card__text_wrapper::before {
+  content: "";
+  position: absolute;
+  height: 10rem;
+  width: 10rem;
+  border-radius: 100%;
+  background-color: var(--clr-secondary);
+  opacity: 0.3;
+  bottom: -6rem;
+  left: -5rem;
+  z-index: -1;
 }
 
 .card__image {
@@ -51,6 +68,26 @@
 
 .card__pages {
   padding-block: 0.75rem;
+}
+
+.card__btn {
+  composes: button from "./Utils.module.css";
+  position: absolute;
+  padding-block: 0;
+  padding-inline: 0;
+  bottom: -1rem;
+  right: 0.8rem;
+  font-size: 3rem;
+}
+
+.card__btn:hover {
+  scale: 1.215;
+}
+
+.list-card__wrapper {
+  composes: card__wrapper;
+  margin: 1rem;
+  z-index: 0;
 }
 
 @keyframes animation {

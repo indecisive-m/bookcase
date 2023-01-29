@@ -1,0 +1,55 @@
+.navbar__wrapper {
+  display: flex;
+  max-width: 100%;
+  position: relative;
+  justify-content: end;
+  padding-top: 1rem;
+  padding-bottom: 5rem;
+  z-index: 10;
+  border-bottom: 1px solid var(--clr-secondary);
+  margin-bottom: 2rem;
+}
+
+.navbar__search {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar__search::after {
+  content: "";
+  height: 15rem;
+  width: 30rem;
+  position: absolute;
+  left: 50%;
+  top: -8rem;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+.navbar__list {
+  display: flex;
+  gap: 2rem;
+  text-decoration: no;
+}
+
+.navbar__list-item {
+  list-style: none;
+}
+
+.navbar__list-item :is(a) {
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+}
+
+.navbar__btn {
+  composes: button from "./Utils.module.css";
+  margin: 1rem;
+  border: 5px solid orangered;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  color: hsl(0, 0%, 0%);
+}
