@@ -2,7 +2,7 @@ import styles from "./Card.module.css";
 
 export default function Card(props) {
   return (
-    <dialog className={styles.card__wrapper}>
+    <div className={styles["list-card__wrapper"]}>
       <img
         className={styles.card__image}
         src={`${props.cover}`}
@@ -24,12 +24,6 @@ export default function Card(props) {
         </p>
         <p className={styles.card__isbn}>ISBN: {props.isbnNumber}</p>
       </div>
-      <button
-        className={styles.card__btn}
-        onClick={() => props.handleAddCard()}
-      >
-        +
-      </button>
-    </dialog>
+    </div>
   );
 }

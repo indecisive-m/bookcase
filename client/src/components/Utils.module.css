@@ -1,0 +1,9 @@
+.button {
+  background-color: transparent;
+  font-family: var(--ff-title);
+  font-weight: 600;
+  padding-inline: 1rem;
+  padding-block: 0.3rem;
+  border: none;
+  cursor: pointer;
+}
